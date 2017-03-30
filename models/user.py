@@ -3,6 +3,7 @@ from models import *
 
 from . import ModelMixin
 from . import db
+from utils.utils import encript_password
 
 
 class User(db.Model, ModelMixin):
@@ -10,7 +11,9 @@ class User(db.Model, ModelMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String())
     password = db.Column(db.String())
-    avatar = db.Column(db.String())
+    # avatar = db.Column(db.String())
+    salt = db.Column(db.String())
+    avatar = db.Column(db.String(200), default='/static/avatar/default_avatar.gif')
     is_administrator = db.Column(db.Boolean, default=False, index=True)
     nodes = db.relationship('Node', backref='user')
     topics = db.relationship('Topic', backref='user')
@@ -35,6 +38,7 @@ class User(db.Model, ModelMixin):
 
     def validate_login(self, u):
         return u.username == self.username and u.password == self.password
+        # return u.username == self.username and u.password == self.password
 
     def change_password(self, password):
         if len(password) > 2:
@@ -50,11 +54,24 @@ class User(db.Model, ModelMixin):
     #         self.avatar = f.read()
     #     return self.avatar
 
-    def change_avatar(self, filename):
-        self.avatar = send_from_directory('uploads/', filename)
-        self.save()
+    # def change_avatar(self, filename):
+    #     self.avatar = send_from_directory('uploads/', filename)
+    #     self.save()
 
-    # def valid_login(self, u):
+    def change_avatar(self, avatar):
+        print('change_avatar was called')
+        print('length of avatar > 2?', len(avatar))
+        print('change_avatar was called')
+        if len(avatar) > 2:
+
+            self.avatar = avatar
+            self.save()
+            return True
+        else:
+            return False
+
+
+                # def valid_login(self, u):
     #     if u is not None:
     #         username_equals = u.username == self.username
     #         password_equals = u.password == self.password

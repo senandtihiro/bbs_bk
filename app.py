@@ -18,7 +18,8 @@ from flask import render_template
 
 app = Flask(__name__)
 db_path = 'bbs.sqlite'
-UPLOAD_FOLDER = 'uploads/'
+# UPLOAD_FOLDER = 'uploads/'
+UPLOAD_FOLDER = 'static/avatar/'
 manager = Manager(app)
 # login_manager = LoginManager()
 # login_manager.login_view = 'user.login'

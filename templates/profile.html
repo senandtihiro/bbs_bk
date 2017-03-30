@@ -79,16 +79,18 @@
       <div>
         <form action="/user/upload_avatar" method="post" enctype="multipart/form-data">
           头像：
-          <input type="file" name="file" style="width:400px;">
+          <input type="file" name="uploaded" style="width:400px;">
           <button type="submit" value="Upload">上传头像</button>
         </form>
       </div>
 
       <div>
+
+
         <!--头像预览：-->
         <!--<div >-->
           <!--大<img src="ahe.jpg" class="avatar-l">-->
-          <!--中<img src="{{ user.avatar }}" class="avatar">-->
+          <img src="{{ user.avatar }}" class="avatar">
           <!--小<img src="{{ user.avatar }}" class="avatar-s">-->
         <!--</div>-->
       </div>
